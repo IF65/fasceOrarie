@@ -1,5 +1,4 @@
 <?php
-	//@ini_set('memory_limit','8192M');
 	@ini_set('memory_limit',-1);
 	
 	require(realpath(__DIR__ . '/..').'/vendor/autoload.php');
@@ -26,18 +25,13 @@
 	
 	use Database\Database;
 	
-	$timeZone = new DateTimeZone('Europe/Rome');
-	
-	$request = file_get_contents('php://input');
-    $data = json_decode($request, true);
-	
 	$db = new Database($sqlDetails);
 	$dati = $db->percentili->ricerca(['societa' => '01', 'dallaData' => '2018-01-01']);
 	
 	$elencoNegozi = $db->negozi->elenco();
 	
     $nomeFile = 'percentili_'.time().'.xlsx';
-    $file = '../toSend/'.$nomeFile;
+    $file = realpath(__DIR__ . '/..').'/toSend/'.$nomeFile;
 
     // creazione del workbook 
     $workBook = new Spreadsheet();
@@ -283,12 +277,11 @@
 	$writer->save($file);
 	
 	if (file_exists($file)) {
-		$conn_id = ftp_connect($sqlDetails['ftpServer']);        // set up basic connection
+		$conn_id = ftp_connect($sqlDetails['ftpServer']);       
 		$login_result = ftp_login($conn_id, $sqlDetails['ftpUser'], $sqlDetails['ftpPassword']) or die("Login FTP non riuscito");   
-		if ((!$conn_id) || (!$login_result)) {  // check connection
-			// wont ever hit this, b/c of the die call on ftp_login
-			echo "FTP connection has failed! <br />";
-			echo "Attempted to connect to $ftp_server for user $ftp_user_name";
+		if ((!$conn_id) || (!$login_result)) {  
+			echo "La connessione FTP non è aperta! <br />";
+			echo "Tentativo di connettersi a $ftp_server dell\'utente $ftp_user_name";
 			exit;
 		} else {
 			ftp_chdir ($conn_id, "Anna Corbetta" ) or die("Cambio directory non riuscito");  
