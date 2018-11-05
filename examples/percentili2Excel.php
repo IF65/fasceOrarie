@@ -114,12 +114,36 @@
 			$descrizioneNegozio = $elencoNegozi[$riga['neg']]['negozioDescrizione'];
 		}
 		
+		$giornoDellaSettimana = '';
+		if ($riga['giornoSettimana'] == 0) {
+			$giornoDellaSettimana = 'Lun';
+		} elseif ($riga['giornoSettimana'] == 1) {
+			$giornoDellaSettimana = 'Mar';
+		} elseif ($riga['giornoSettimana'] == 2) {
+			$giornoDellaSettimana = 'Mer';
+		} elseif ($riga['giornoSettimana'] == 3) {
+			$giornoDellaSettimana = 'Gio';
+		} elseif ($riga['giornoSettimana'] == 4) {
+			$giornoDellaSettimana = 'Ven';
+		} elseif ($riga['giornoSettimana'] == 5) {
+			$giornoDellaSettimana = 'Sab';
+		} elseif ($riga['giornoSettimana'] == 6) {
+			$giornoDellaSettimana = 'Dom';
+		}
+		
+		$festivo = '';
+		if ($riga['festivo'] == 1) {
+			$festivo = 'festivo';
+		}
+		
 		$sheet->getCell(Coordinate::stringFromColumnIndex(1).$R)->setValueExplicit($riga['soc'],DataType::TYPE_STRING);
 		$sheet->getCell(Coordinate::stringFromColumnIndex(2).$R)->setValueExplicit($riga['neg'],DataType::TYPE_STRING);
 		$sheet->getCell(Coordinate::stringFromColumnIndex(3).$R)->setValueExplicit($descrizioneNegozio,DataType::TYPE_STRING);
 		$sheet->getCell(Coordinate::stringFromColumnIndex(4).$R)->setValueExplicit($riga['anno'],DataType::TYPE_NUMERIC);
 		$sheet->getCell(Coordinate::stringFromColumnIndex(5).$R)->setValueExplicit($riga['mese'],DataType::TYPE_NUMERIC);
 		$sheet->getCell(Coordinate::stringFromColumnIndex(6).$R)->setValueExplicit($riga['giorno'],DataType::TYPE_NUMERIC);
+		$sheet->getCell(Coordinate::stringFromColumnIndex(7).$R)->setValueExplicit($giornoDellaSettimana,DataType::TYPE_STRING);
+		$sheet->getCell(Coordinate::stringFromColumnIndex(8).$R)->setValueExplicit($festivo,DataType::TYPE_STRING);
 		$sheet->getCell(Coordinate::stringFromColumnIndex(9).$R)->setValueExplicit($riga['sc.totale'],DataType::TYPE_NUMERIC);
 		$sheet->getCell(Coordinate::stringFromColumnIndex(10).$R)->setValueExplicit($riga['sc.nimis'],DataType::TYPE_NUMERIC);
 		$sheet->getCell(Coordinate::stringFromColumnIndex(11).$R)->setValueExplicit($riga['totale'],DataType::TYPE_NUMERIC);

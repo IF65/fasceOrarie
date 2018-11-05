@@ -76,6 +76,8 @@
                                                 year(p.`data`) anno,
                                                 month(p.`data`) mese,
                                                 day(p.`data`) giorno,
+                                                cg.`giornoSettimana`,
+                                                cg.`festivo`,
                                                 sum(p.`scontrini`) 'sc.totale',
                                                 sum(p.`scontriniNimis`) 'sc.nimis',
                                                 sum(p.`totale`) totale,
@@ -128,7 +130,7 @@
                                                 sum(case when ora = 22 then p.`totale` else 0 end) I22,
                                                 sum(case when ora = 23 then p.`scontrini` else 0 end) S23,
                                                 sum(case when ora = 23 then p.`totale` else 0 end) I23
-                                            from ".$this->dataBaseName.'.'.$this->tableName." as p
+                                            from ".$this->dataBaseName.'.'.$this->tableName." as p join archivi.calendarioGiornaliero as cg  on p.`data`=cg.`data`
                                             where p.`data`>='$dallaData' 
                                             group by p.`societa`,p.`negozio`,p.`data`
                                             order by p.`societa`,p.`negozio`,p.`data`");
