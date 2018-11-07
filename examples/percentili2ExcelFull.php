@@ -150,13 +150,13 @@
 		$sheet->getCell(Coordinate::stringFromColumnIndex(12).$R)->setValueExplicit($riga['totale nimis'],DataType::TYPE_NUMERIC);
 		
 		for ($offset = 0 ; $offset <= 23; $offset++) {
-			//$importoPercentuale = '=IF('.Coordinate::stringFromColumnIndex(11).$R.'<>0,'.Coordinate::stringFromColumnIndex(13 + ($offset * 4)).$R.'/'.Coordinate::stringFromColumnIndex(11).$R.',0)';
+			$importoPercentuale = '=IF('.Coordinate::stringFromColumnIndex(11).$R.'<>0,'.Coordinate::stringFromColumnIndex(13 + ($offset * 4)).$R.'/'.Coordinate::stringFromColumnIndex(11).$R.',0)';
 			$sheet->getCell(Coordinate::stringFromColumnIndex(13 + ($offset * 4)).$R)->setValueExplicit($riga['I'.str_pad($offset,2,'0',STR_PAD_LEFT)],DataType::TYPE_NUMERIC);
-			//$sheet->getCell(Coordinate::stringFromColumnIndex(14 + ($offset * 4)).$R)->setValueExplicit($importoPercentuale,DataType::TYPE_FORMULA);
+			$sheet->getCell(Coordinate::stringFromColumnIndex(14 + ($offset * 4)).$R)->setValueExplicit($importoPercentuale,DataType::TYPE_FORMULA);
 			
-			//$scontriniPercentuale = '=IF('.Coordinate::stringFromColumnIndex(9).$R.'<>0,'.Coordinate::stringFromColumnIndex(15 + ($offset * 4)).$R.'/'.Coordinate::stringFromColumnIndex(9).$R.',0)';
+			$scontriniPercentuale = '=IF('.Coordinate::stringFromColumnIndex(9).$R.'<>0,'.Coordinate::stringFromColumnIndex(15 + ($offset * 4)).$R.'/'.Coordinate::stringFromColumnIndex(9).$R.',0)';
 			$sheet->getCell(Coordinate::stringFromColumnIndex(15 + ($offset * 4)).$R)->setValueExplicit($riga['S'.str_pad($offset,2,'0',STR_PAD_LEFT)],DataType::TYPE_NUMERIC);
-			//$sheet->getCell(Coordinate::stringFromColumnIndex(16 + ($offset * 4)).$R)->setValueExplicit($scontriniPercentuale,DataType::TYPE_FORMULA);
+			$sheet->getCell(Coordinate::stringFromColumnIndex(16 + ($offset * 4)).$R)->setValueExplicit($scontriniPercentuale,DataType::TYPE_FORMULA);
 		}
 	}
 	
